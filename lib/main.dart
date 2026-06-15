@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:quickmark/core/routes/app_routes.dart';
-import 'package:quickmark/core/theme/theme.dart';
+import 'package:quickmark/services/di/app_locator.dart';
+import 'package:quickmark/providers/theme_provider.dart';
+import 'package:quickmark/routes/app_routes.dart';
+import 'package:quickmark/theme/theme.dart';
 import 'package:window_manager/window_manager.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await windowManager.ensureInitialized();
+  await AppLocator.init();
 
   WindowOptions windowOptions = const WindowOptions(
     titleBarStyle: TitleBarStyle.hidden,
@@ -25,46 +28,26 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    int a = 33;
-    List<String> b = ['a', 'b', 'c'];
     return MultiProvider(
       providers: [
-        Provider(create: (context) => a),
-        Provider(create: (context) => b),
-        ChangeNotifierProvider(create: (context) => ThemeNotif()),
-        ChangeNotifierProvider(create: (context) => Temp()),
-      ],
-      child: Consumer<ThemeNotif>(
-        builder: (context, themeNotif, child) => MaterialApp.router(
-          debugShowCheckedModeBanner: false,
-          theme: AppTheme.light,
-          darkTheme: AppTheme.dark,
-          themeMode: themeNotif.themeMode,
-          routerConfig: router,
+        ChangeNotifierProvider(
+          create: (_) => ThemeProvider(
+            AppLocator.settingsService,
+            initTheme: AppLocator.initialTheme,
+          ),
         ),
+      ],
+      child: Consumer<ThemeProvider>(
+        builder: (context, themeProvider, child) {
+          return MaterialApp.router(
+            debugShowCheckedModeBanner: false,
+            theme: AppTheme.light,
+            darkTheme: AppTheme.dark,
+            themeMode: themeProvider.themeMode,
+            routerConfig: router,
+          );
+        },
       ),
     );
-  }
-}
-
-class Temp extends ChangeNotifier {
-  int temp = 20;
-
-  void plusTemp() {
-    temp++;
-    notifyListeners();
-  }
-}
-
-class ThemeNotif extends ChangeNotifier {
-  ThemeMode themeMode = ThemeMode.light;
-
-  void switchTheme() {
-    if (themeMode == ThemeMode.light) {
-      themeMode = ThemeMode.dark;
-    } else {
-      themeMode = ThemeMode.light;
-    }
-    notifyListeners();
   }
 }

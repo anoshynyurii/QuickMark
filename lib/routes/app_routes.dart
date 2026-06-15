@@ -1,8 +1,8 @@
 import 'package:go_router/go_router.dart';
-import 'package:quickmark/core/routes/navigation_shell.dart';
-import 'package:quickmark/presentation/pages/home_page.dart';
-import 'package:quickmark/presentation/pages/reader_page.dart';
-import 'package:quickmark/presentation/pages/settings_page.dart';
+import 'package:quickmark/routes/navigation_shell.dart';
+import 'package:quickmark/pages/home_page.dart';
+import 'package:quickmark/pages/reader_page.dart';
+import 'package:quickmark/pages/settings_page.dart';
 
 final GoRouter router = GoRouter(
   initialLocation: '/home',

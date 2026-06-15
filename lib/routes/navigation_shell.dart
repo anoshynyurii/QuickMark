@@ -3,8 +3,8 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
-import 'package:quickmark/core/theme/theme.dart';
-import 'package:quickmark/main.dart';
+import 'package:quickmark/providers/theme_provider.dart';
+import 'package:quickmark/theme/theme.dart';
 import 'package:window_manager/window_manager.dart';
 
 class NavigationShell extends StatefulWidget {
@@ -106,12 +106,12 @@ class _DesktopTitleBarState extends State<DesktopTitleBar> {
   }
 
   void _switchTheme() {
-    context.read<ThemeNotif>().switchTheme();
+    context.read<ThemeProvider>().switchTheme();
   }
 
   @override
   Widget build(BuildContext context) {
-    final themeNotif = context.watch<ThemeNotif>();
+    final themeNotif = context.watch<ThemeProvider>();
     return DragToMoveArea(
       child: Container(
         height: 28,

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
-import 'package:quickmark/core/theme/theme.dart';
+import 'package:quickmark/theme/theme.dart';
 
 class ReaderPage extends StatefulWidget {
   const ReaderPage({super.key});
@@ -25,7 +25,7 @@ class _ReaderPageState extends State<ReaderPage> {
                 '/settings',
               );
             },
-            child: Text(Provider.of<List<String>>(context).last),
+            child: Text('reader'),
           ),
         ),
       ),
