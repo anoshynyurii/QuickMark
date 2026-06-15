@@ -18,7 +18,9 @@ final GoRouter router = GoRouter(
           routes: [
             GoRoute(
               path: '/home',
-              builder: (context, state) => HomePage(),
+              builder: (context, state) {
+                return HomePage();
+              },
             ),
           ],
         ),
@@ -26,7 +28,10 @@ final GoRouter router = GoRouter(
           routes: [
             GoRoute(
               path: '/reader',
-              builder: (context, state) => ReaderPage(),
+              builder: (context, state) {
+                final int value = state.extra as int? ?? 33;
+                return ReaderPage();
+              },
             ),
           ],
         ),
@@ -34,7 +39,10 @@ final GoRouter router = GoRouter(
           routes: [
             GoRoute(
               path: '/settings',
-              builder: (context, state) => SettingsPage(),
+              builder: (context, state) {
+                final int value = state.extra as int? ?? 33;
+                return SettingsPage();
+              },
             ),
           ],
         ),
